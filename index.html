@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Manutenção 2.0</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h2>Login</h2>
+      <input type="text" id="usuario" placeholder="Usuário">
+      <input type="password" id="senha" placeholder="Senha">
+      <button onclick="login()">Entrar</button>
+    </div>
+  </div>
+
+  <!-- SISTEMA -->
+  <div class="app" id="app">
+    <div class="header">
+      <h2>Controle de Manutenção 2.0</h2>
+      <button onclick="logout()">Sair</button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+      <div class="card">
+        <h3 id="total">0</h3>
+        <p>Total de Equipamentos Operantes</p>
+      </div>
+      <div class="card">
+        <h3 id="manutencao">0</h3>
+        <p>Em Manutenção</p>
+      </div>
+      <div class="card">
+        <h3 id="pendente">0</h3>
+        <p>Pendentes</p>
+      </div>
+    </div>
+
+    <!-- GRÁFICO -->
+    <div style="width:100%; max-width:400px; margin:0 auto;">
+      <canvas id="statusChart" height="250"></canvas>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <form id="formEquipamento">
+      <input type="date" id="data" required>
+      <input type="text" id="placa" placeholder="Placa" required>
+
+      <select id="status">
+        <option value="Liberado">Liberado</option>
+        <option value="Em Manutenção">Em Manutenção</option>
+        <option value="Pendente">Pendente</option>
+      </select>
+
+      <textarea id="observacoes" placeholder="Observações"></textarea>
+      <input type="time" id="horario">
+
+      <button type="submit">Salvar</button>
+    </form>
+
+    <!-- TABELA -->
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Placa</th>
+          <th>Status</th>
+          <th>Obs</th>
+          <th>Hora</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaBody"></tbody>
+    </table>
+
+    <!-- BOTÃO DE EXPORTAÇÃO -->
+    <div style="text-align:center; margin: 20px 0;">
+      <button onclick="exportarCSV()" style="background:#28a745; color:white; padding:10px 20px; border:none; border-radius:5px; font-size:16px; cursor:pointer;">
+        Exportar para Excel
+      </button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
