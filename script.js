@@ -5,104 +5,142 @@ let equipamentos = [
     placa: "Caminhão Brook 10 Ton (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Caminhão Pipa - 10.000L C/Ajudante (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Caminhão Pipa - 16.000L (Diurno 2x2 12h)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Caminhão Alto Vácuo C/Ajudante - 1 (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Vassoura Mecânica S/Ajudante (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Trator D 6 R (4x4 24h)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Escavadeira 318 Com Clam Shell (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Pá Carregadeira - CAT 950 (4X4 24h)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Manipulador 4,5 Ton - (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Empilhadeira 2,5 Ton - (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Empilhadeira 7,0 Ton - (Adm)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
   {
     data: "",
     placa: "Retro Escavadeira (Diurno 2x2 12h)",
     status: "Liberado",
     observacoes: "",
-    horario: "",
+    horarioInicio: "",
+    horarioChegada: "",
+    horarioSaida: "",
+    bomDiaTodo: false,
   },
 ];
 
 let editIndex = null;
-
 const tabela = document.getElementById("tabelaBody");
 
 // Inputs
-const data = document.getElementById("data");
-const placa = document.getElementById("placa");
-const status = document.getElementById("status");
-const observacoes = document.getElementById("observacoes");
-const horario = document.getElementById("horario");
+const dataInput = document.getElementById("data");
+const placaInput = document.getElementById("placa");
+const statusInput = document.getElementById("status");
+const observacoesInput = document.getElementById("observacoes");
+const horarioInicioInput = document.getElementById("horarioInicio");
+const horarioChegadaInput = document.getElementById("horarioChegada");
+const horarioSaidaInput = document.getElementById("horarioSaida");
+const bomDiaTodoInput = document.getElementById("bomDiaTodo");
 
 // ===== LOGIN =====
 function login() {
   const user = document.getElementById("usuario").value;
   const pass = document.getElementById("senha").value;
 
-  if (user === "admin" && pass === "1234") {
+  if (user === "pedro" && pass === "pimenta") {
     localStorage.setItem("logado", "true");
     iniciarSistema();
   } else {
@@ -138,13 +176,14 @@ function atualizarDashboard() {
   const totalOperantes = equipamentos.filter(
     (e) => e.status === "Liberado",
   ).length;
-  document.getElementById("total").innerText = totalOperantes;
-  document.getElementById("manutencao").innerText = equipamentos.filter(
+  const manutencao = equipamentos.filter(
     (e) => e.status === "Em Manutenção",
   ).length;
-  document.getElementById("pendente").innerText = equipamentos.filter(
-    (e) => e.status === "Pendente",
-  ).length;
+  const pendente = equipamentos.filter((e) => e.status === "Pendente").length;
+
+  document.getElementById("total").innerText = totalOperantes;
+  document.getElementById("manutencao").innerText = manutencao;
+  document.getElementById("pendente").innerText = pendente;
 }
 
 // ===== TABELA =====
@@ -162,7 +201,10 @@ function render() {
       <td data-label="Placa">${item.placa}</td>
       <td data-label="Status" class="${statusClass}">${item.status}</td>
       <td data-label="Obs">${item.observacoes}</td>
-      <td data-label="Hora">${item.horario}</td>
+      <td data-label="Horário Início">${item.horarioInicio}</td>
+      <td data-label="Horário Chegada">${item.horarioChegada}</td>
+      <td data-label="Horário Saída">${item.horarioSaida}</td>
+      <td data-label="Equipamento OK"><input type="checkbox" disabled ${item.bomDiaTodo ? "checked" : ""}></td>
       <td data-label="Ações">
         <button onclick="editar(${index})">Editar</button>
         <button onclick="excluir(${index})">Excluir</button>
@@ -182,11 +224,14 @@ document
     e.preventDefault();
 
     const equipamento = {
-      data: data.value,
-      placa: placa.value,
-      status: status.value,
-      observacoes: observacoes.value,
-      horario: horario.value,
+      data: dataInput.value,
+      placa: placaInput.value,
+      status: statusInput.value,
+      observacoes: observacoesInput.value,
+      horarioInicio: horarioInicioInput.value,
+      horarioChegada: horarioChegadaInput.value,
+      horarioSaida: horarioSaidaInput.value,
+      bomDiaTodo: bomDiaTodoInput.checked,
     };
 
     if (editIndex === null) {
@@ -204,11 +249,14 @@ document
 // ===== EDITAR / EXCLUIR =====
 function editar(index) {
   const item = equipamentos[index];
-  data.value = item.data;
-  placa.value = item.placa;
-  status.value = item.status;
-  observacoes.value = item.observacoes;
-  horario.value = item.horario;
+  dataInput.value = item.data;
+  placaInput.value = item.placa;
+  statusInput.value = item.status;
+  observacoesInput.value = item.observacoes;
+  horarioInicioInput.value = item.horarioInicio;
+  horarioChegadaInput.value = item.horarioChegada;
+  horarioSaidaInput.value = item.horarioSaida;
+  bomDiaTodoInput.checked = item.bomDiaTodo;
   editIndex = index;
 }
 
@@ -258,27 +306,43 @@ function atualizarGrafico() {
     (e) => e.status === "Em Manutenção",
   ).length;
   const pendente = equipamentos.filter((e) => e.status === "Pendente").length;
-
   statusChart.data.datasets[0].data = [liberado, manutencao, pendente];
   statusChart.update();
 }
 
-// ===== EXPORTAR CSV COM UTF-8 BOM =====
+// ===== EXPORTAR CSV =====
 function exportarCSV() {
   if (equipamentos.length === 0) {
     alert("Nenhum dado para exportar!");
     return;
   }
 
-  const header = ["Data", "Placa", "Status", "Observacoes", "Horario"];
+  const header = [
+    "Data",
+    "Placa",
+    "Status",
+    "Observacoes",
+    "Horário Início",
+    "Horário Chegada",
+    "Horário Saída",
+    "Equipamento OK",
+  ];
   const csvContent = [
     header.join(";"),
     ...equipamentos.map((e) =>
-      [e.data, e.placa, e.status, e.observacoes, e.horario].join(";"),
+      [
+        e.data,
+        e.placa,
+        e.status,
+        e.observacoes,
+        e.horarioInicio,
+        e.horarioChegada,
+        e.horarioSaida,
+        e.bomDiaTodo ? "OK" : "",
+      ].join(";"),
     ),
   ].join("\n");
 
-  // Adiciona BOM UTF-8 para Excel
   const bom = "\uFEFF";
   const blob = new Blob([bom + csvContent], {
     type: "text/csv;charset=utf-8;",
@@ -293,6 +357,11 @@ function exportarCSV() {
 }
 
 // ===== LOGIN SALVO =====
-if (localStorage.getItem("logado") === "true") {
-  iniciarSistema();
-}
+window.addEventListener("load", () => {
+  if (localStorage.getItem("logado") === "true") {
+    iniciarSistema();
+  } else {
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("app").style.display = "none";
+  }
+});

@@ -45,6 +45,19 @@ button:hover {
   background: #0056b3;
 }
 
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espaço entre checkbox e texto */
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
 /* SISTEMA */
 .app {
   display: none;

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Manutenção 2.0</title>
+  <title>Sistema de Manutenção</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -24,7 +24,7 @@
   <!-- SISTEMA -->
   <div class="app" id="app">
     <div class="header">
-      <h2>Controle de Manutenção 2.0</h2>
+      <h2>Controle de Manutenção</h2>
       <button onclick="logout()">Sair</button>
     </div>
 
@@ -61,7 +61,20 @@
       </select>
 
       <textarea id="observacoes" placeholder="Observações"></textarea>
-      <input type="time" id="horario">
+
+      <label>Horário Início:</label>
+      <input type="time" id="horarioInicio">
+
+      <label>Horário Chegada:</label>
+      <input type="time" id="horarioChegada">
+
+      <label>Horário Saída:</label>
+      <input type="time" id="horarioSaida">
+
+      <label class="checkbox-label">
+        <input type="checkbox" id="bomDiaTodo">
+        Equipamento OK
+      </label>
 
       <button type="submit">Salvar</button>
     </form>
@@ -74,7 +87,10 @@
           <th>Placa</th>
           <th>Status</th>
           <th>Obs</th>
-          <th>Hora</th>
+          <th>Horário Início</th>
+          <th>Horário Chegada</th>
+          <th>Horário Saída</th>
+          <th>Equipamento OK</th>
           <th>Ações</th>
         </tr>
       </thead>
